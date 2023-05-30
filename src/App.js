@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Typography } from "@mui/material";
+import MyAppBar from './components/navBar'
 
 import io from "socket.io-client";
 
@@ -22,11 +23,15 @@ const App = () => {
     return () => socketIo.current.disconnect();
   }, []);
 
-  if (!client) {
-    return <Typography>There's no one client connected at moment</Typography>;
-  }
+  return <>
+    <MyAppBar />
+  </>
 
-  return <Typography>Client Connected: {client?.first_name}</Typography>;
+  // if (!client) {
+  //   return <Typography>There's no one client connected at moment</Typography>;
+  // }
+
+  // return <Typography>Client Connected: {client?.first_name}</Typography>;
 };
 
 export default App;
