@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Typography } from "@mui/material";
 import MyAppBar from './components/navBar'
-
+import { Route, Routes } from "react-router-dom"
 import io from "socket.io-client";
+import MarketData from './pages/marketData'
 
 const ENDPOINT = `http://${window.location.hostname}:3003`;
 
@@ -25,13 +25,13 @@ const App = () => {
 
   return <>
     <MyAppBar />
+    <br/><br/><br/><br/><br/><br/><br/>
+    <Routes>
+        <Route path="/user" exact />
+        <Route path="/table" element={<MarketData />} exact />
+    </Routes>
   </>
 
-  // if (!client) {
-  //   return <Typography>There's no one client connected at moment</Typography>;
-  // }
-
-  // return <Typography>Client Connected: {client?.first_name}</Typography>;
 };
 
 export default App;
