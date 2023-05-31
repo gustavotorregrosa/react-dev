@@ -1,0 +1,10 @@
+FROM node:18
+COPY ./startfront.sh /usr/local/bin/startfront.sh
+RUN chmod +x /usr/local/bin/startfront.sh
+RUN mkdir /home/app
+WORKDIR /home/app
+EXPOSE 3000
+ENTRYPOINT ["startfront.sh"]
+
+
+

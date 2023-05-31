@@ -1,0 +1,31 @@
+version: '3'
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+    volumes:
+      - .:/home/app/
+    ports:
+      - "3003:3003"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+
+  front:
+    build:
+      context: .
+      dockerfile: Dockerfile.front
+    command: npm run start
+    volumes:
+      - .:/home/app/
+    ports:
+      - "3000:3000"
+    depends_on:
+      server:
+        condition: service_healthy
+   

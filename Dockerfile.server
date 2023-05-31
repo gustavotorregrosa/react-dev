@@ -1,0 +1,10 @@
+FROM node:18
+COPY ./startserver.sh /usr/local/bin/startserver.sh
+RUN chmod +x /usr/local/bin/startserver.sh
+RUN mkdir /home/app
+WORKDIR /home/app
+EXPOSE 3003
+ENTRYPOINT ["startserver.sh"]
+
+
+
