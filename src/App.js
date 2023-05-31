@@ -3,12 +3,15 @@ import MyAppBar from './components/navBar'
 import { Route, Routes } from "react-router-dom"
 import io from "socket.io-client";
 import MarketData from './pages/marketData'
+import { Container } from "@mui/material";
+import uuid from 'uuid-random';
 
 const ENDPOINT = `http://${window.location.hostname}:3003`;
 
 const App = () => {
   const socketIo = useRef(null);
   const [client, setClient] = useState(null);
+  const [marketData, setMarketData] = useState([])
 
   useEffect(() => {
     socketIo.current = io(ENDPOINT);
@@ -18,18 +21,33 @@ const App = () => {
       (client) => client && setClient(client)
     );
 
-    socketIo.current.on("market-data", (data) => console.log({ data }));
+    socketIo.current.on("market-data", (data) => {
+      console.log({ data })
+
+      const dataWithID = {
+        ...data,
+        id: uuid()
+      }
+      // data.id = uuid()
+      // console.log({index})
+      setMarketData(prev => [
+        ...prev,
+        dataWithID
+      ])
+    });
 
     return () => socketIo.current.disconnect();
   }, []);
 
   return <>
-    <MyAppBar />
-    <br/><br/><br/><br/><br/><br/><br/>
-    <Routes>
-        <Route path="/user" exact />
-        <Route path="/table" element={<MarketData />} exact />
-    </Routes>
+      <MyAppBar />
+      <br/><br/>
+      <Container>
+        <Routes>
+            <Route path="/user" exact />
+            <Route path="/table" element={<MarketData rows={marketData} />} exact />
+        </Routes>
+      </Container>
   </>
 
 };

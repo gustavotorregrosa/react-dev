@@ -1,0 +1,16 @@
+body {
+    background-color: #001e3c;
+    color: white;
+}
+
+.clear-text, 
+.clear-text p,
+.clear-text input,
+.clear-text div,
+.clear-text button,
+.clear-text svg{
+    color: white !important;
+}
+
+
+
