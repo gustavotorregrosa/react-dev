@@ -4,6 +4,10 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 function UserPage({client}) {
+
+    if(!client){
+        return <></>
+    }
   
     return <>
         <Card sx={{ maxWidth: 400 }}>
